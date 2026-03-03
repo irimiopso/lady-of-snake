@@ -60,6 +60,42 @@
     <footer>
         <p>Bana ulaşın: <strong>iletisim@siteniz.com</strong></p>
     </footer>
+<script>
+    // Google Tablo CSV linkini buraya yapıştır
+    const csvUrl = 'SENIN_CSV_LINKIN_BURAYA';
 
+    fetch(csvUrl)
+        .then(res => res.text())
+        .then(data => {
+            let rows = data.split('\n').slice(1); // Başlık satırını atla
+            const announcementBox = document.querySelector('.announcement-box');
+            const bookGrid = document.querySelector('.book-grid');
+
+            // Mevcut statik örnekleri temizle (opsiyonel)
+            announcementBox.innerHTML = '';
+            bookGrid.innerHTML = '';
+
+            rows.forEach(row => {
+                const cols = row.split(',');
+                if(cols.length < 4) return;
+
+                // Duyuruları Ekle
+                announcementBox.innerHTML += `
+                    <div class="announcement-item">
+                        <span class="date">${cols[0]}</span>
+                        <p>${cols[1]}</p>
+                    </div>`;
+
+                // Kitapları Ekle
+                bookGrid.innerHTML += `
+                    <div class="book-card">
+                        <div class="book-cover">${cols[2]}</div>
+                        <h3>${cols[2]}</h3>
+                        <p>${cols[3]}</p>
+                    </div>`;
+            });
+        });
+</script>
 </body>
+
 </html>

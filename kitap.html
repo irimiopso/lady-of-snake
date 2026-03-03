@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Okuma Paneli</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .reader-container { max-width: 800px; margin: 50px auto; padding: 20px; }
+        .chapter-content { background: #1a1a1a; padding: 30px; border-radius: 10px; line-height: 1.8; margin-top: 20px; border-left: 5px solid #800000; }
+        .back-btn { color: #800000; text-decoration: none; font-weight: bold; display: inline-block; margin-bottom: 20px; }
+    </style>
+</head>
+<body style="background: #000; color: #ccc; font-family: 'Poppins', sans-serif;">
+
+    <div class="reader-container">
+        <a href="index.html" class="back-btn">← Kütüphaneye Dön</a>
+        <h1 id="book-title" style="color: #fff; font-family: 'Playfair Display';">Yükleniyor...</h1>
+        <div id="chapters-area"></div>
+    </div>
+
+    <script>
+        const csvUrl = 'SENIN_GOOGLE_CSV_LINKIN_BURAYA';
+        const urlParams = new URLSearchParams(window.location.search);
+        const secilenKitap = urlParams.get('ad');
+
+        async function bolumleriYukle() {
+            const res = await fetch(csvUrl);
+            const data = await res.text();
+            const rows = data.split('\n').slice(1);
+
+            const area = document.getElementById('chapters-area');
+            document.getElementById('book-title').innerText = secilenKitap;
+
+            rows.forEach(row => {
+                const cols = row.split(/,|;/);
+                if (cols[2] === secilenKitap) {
+                    // E sütunundaki (4. index) bölümleri yıldızdan ayırarak listele
+                    const bolumler = cols[4].split('*');
+                    bolumler.forEach(bolum => {
+                        area.innerHTML += `<div class="chapter-content">${bolum}</div>`;
+                    });
+                }
+            });
+        }
+        bolumleriYukle();
+    </script>
+</body>
+</html>

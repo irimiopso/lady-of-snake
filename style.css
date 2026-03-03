@@ -33,10 +33,16 @@ h1 { font-family: 'Playfair Display', serif; font-size: 3rem; }
 
 /* Kitaplar */
 #books { padding: 60px 10%; }
-.book-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px; /* Kartlar arası boşluk */
+    padding: 20px;
+}
 .book-card { background: #1a1a1a; padding: 20px; border-radius: 10px; text-align: center; transition: 0.3s; }
 .book-card:hover { border: 1px solid #800000; transform: translateY(-5px); }
 .book-cover { height: 250px; background: #800000; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
 /* Footer */
+
 footer { text-align: center; padding: 40px; background: #0a0a0a; border-top: 1px solid #333; }

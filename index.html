@@ -75,9 +75,19 @@
             announcementBox.innerHTML = '';
             bookGrid.innerHTML = '';
 
-            rows.forEach(row => {
-                const cols = row.split(',');
-                if(cols.length < 4) return;
+           // Kitapları oluşturan döngü kısmını bununla güncelle
+rows.forEach(row => {
+    const cols = row.split(/,|;/); 
+    if (cols.length >= 4) {
+        bookGrid.innerHTML += `
+            <div class="book-card" style="background:#1a1a1a; padding:20px; border-radius:10px; text-align:center; border:1px solid #333;">
+                <div class="book-cover" style="background:#800000; height:150px; display:flex; align-items:center; justify-content:center; margin-bottom:15px; font-weight:bold; color:white;">${cols[2]}</div>
+                <h3 style="color:white;">${cols[2]}</h3>
+                <p style="color:#ccc; font-size:0.9rem; margin-bottom:15px;">${cols[3]}</p>
+                <a href="kitap.html?ad=${encodeURIComponent(cols[2])}" style="display:inline-block; background:#800000; color:white; padding:8px 20px; text-decoration:none; border-radius:5px; font-weight:bold;">Oku</a>
+            </div>`;
+    }
+}); 
 
                 // Duyuruları Ekle
                 announcementBox.innerHTML += `
@@ -99,6 +109,7 @@
 </body>
 
 </html>
+
 
 
 
